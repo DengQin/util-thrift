@@ -1,0 +1,29 @@
+	<!-- parent thrift连接池配置 -->
+	<bean id="parentConnectionProvider"
+		class="com.dengqin.util.pool.GenericConnectionProvider"
+		abstract="true">
+		<property name="maxActive" value="8" />
+		<property name="maxIdle" value="8" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="conTimeOut" value="6000" />
+	</bean>
+
+	<!-- udb thrift连接池配置 -->
+	<bean id="matserConnectionProvider" parent="parentConnectionProvider">
+		<property name="serverIp" value="${master.thrift.host}" />
+		<property name="serverPort" value="${master.thrift.port}" />
+	</bean>
+
+	<!-- udb thrift连接池配置 -->
+	<bean id="slaveConnectionProvider" parent="parentConnectionProvider">
+		<property name="serverIp" value="${slave.thrift.host}" />
+		<property name="serverPort" value="${slave.thrift.port}" />
+	</bean>
+
+	<!-- udb thrift连接管理配置 -->
+	<bean id="masterAndSlaveThriftManagerDemo" class="com.dengqin.util.manager.demo.MasterAndSlaveThriftManagerDemo">
+		<property name="masterConnectionProvider" ref="matserConnectionProvider" />
+		<property name="slaveConnectionProvider" ref="slaveConnectionProvider" />
+	</bean>
