@@ -8,13 +8,13 @@
         <property name="conTimeOut" value="6000" />
     </bean>
 
-    <!-- udb thrift连接池配置 -->
+    <!--  thrift连接池配置 -->
     <bean id="connectionProvider" parent="parentConnectionProvider">
         <property name="serverIp" value="127.0.0.1" />
         <property name="serverPort" value="8195" />
     </bean>
     
-    <!-- udb thrift连接管理配置  -->
+    <!--  thrift连接管理配置  -->
     <bean id="oneThriftManagerDemo" class="com.dengqin.util.manager.demo.OneThriftManagerDemo">
         <property name="connectionProvider" ref="connectionProvider" />
     </bean>
